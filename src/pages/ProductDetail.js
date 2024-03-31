@@ -11,6 +11,7 @@ import {
   Input,
   Button,
   Image,
+  Typography,
 } from "antd";
 import { Comment } from "@ant-design/compatible";
 import moment from "moment";
@@ -18,6 +19,7 @@ import withLogout from "../withLogout";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const ProductDetailPage = () => {
+  const { Title } = Typography;
   const [product, setProduct] = useState(null);
   const [loading, setLoading] = useState(false);
   const [replyingToCommentId, setReplyingToCommentId] = useState(null);
@@ -134,6 +136,9 @@ const ProductDetailPage = () => {
 
   return (
     <div style={{ maxWidth: "600px", margin: "0 auto" }}>
+      <Title level={2} style={{ textAlign: "center", margin: "24px 0" }}>
+        Products Near You
+      </Title>
       <Card
         className="product-card"
         title={`${product.name} - $${product.price}`}
