@@ -133,9 +133,25 @@ const ProductUpload = () => {
               required: true,
               message: "Please upload an image for the product.",
             },
+            () => ({
+              validator(_, value) {
+                if (!value || value.length === 0) {
+                  return Promise.resolve();
+                }
+                const file = value[0].originFileObj;
+                const isJpg = file.type === "image/jpeg";
+                if (!isJpg) {
+                  return Promise.reject(
+                    new Error("You can only upload JPG files!")
+                  );
+                }
+                return Promise.resolve();
+              },
+            }),
           ]}
         >
           <Dragger
+            accept=".jpg,.jpeg"
             name="image"
             beforeUpload={() => false}
             onChange={onUploadChange}
