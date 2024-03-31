@@ -13,6 +13,7 @@ const ProductUpload = () => {
   const navigate = useNavigate();
   const [form] = Form.useForm();
   const [coordinates, setCoordinates] = useState([]);
+  const [loading, setLoading] = useState(false);
   const [file, setFile] = useState(null);
   const [libraries] = useState(["places"]);
   const { isLoaded } = useLoadScript({
@@ -57,6 +58,7 @@ const ProductUpload = () => {
     formData.append("coordinate", JSON.stringify(coordinates));
 
     try {
+      setLoading(true);
       await axios.post(
         `${process.env.REACT_APP_API_URL}/api/products/upload`,
         formData,
@@ -68,9 +70,11 @@ const ProductUpload = () => {
         }
       );
       message.success("Product uploaded successfully");
+      setLoading(false);
       form.resetFields();
       navigate("/products"); // Navigate to the home or product list page
     } catch (error) {
+      setLoading(false);
       message.error(error.response.data.msg || "Failed to upload product");
     }
   };
@@ -147,7 +151,7 @@ const ProductUpload = () => {
           </Dragger>
         </Form.Item>
         <Form.Item>
-          <Button type="primary" htmlType="submit">
+          <Button type="primary" htmlType="submit" loading={loading}>
             Submit
           </Button>
         </Form.Item>

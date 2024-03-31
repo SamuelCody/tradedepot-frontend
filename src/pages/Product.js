@@ -8,6 +8,7 @@ import {
   message,
   Spin,
   Pagination,
+  Typography,
 } from "antd";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
@@ -15,6 +16,7 @@ import withLogout from "../withLogout";
 import { LoadingOutlined } from "@ant-design/icons";
 
 const ProductsNearMe = () => {
+  const { Title } = Typography;
   const [products, setProducts] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
@@ -56,6 +58,9 @@ const ProductsNearMe = () => {
 
   return (
     <>
+      <Title level={2} style={{ textAlign: "center", margin: "24px 0" }}>
+        Products Near You
+      </Title>
       <div style={{ display: "flex", justifyContent: "center" }}>
         <Button
           type="primary"
@@ -104,7 +109,7 @@ const ProductsNearMe = () => {
                 >
                   uploaded by{" "}
                   <span style={{ fontWeight: "bold" }}>
-                    {item?.user?.username}
+                    {item?.userInfo?.username}
                   </span>
                   <div
                     style={{
